@@ -1,0 +1,97 @@
+#include "Engine.h"
+#include <iostream>
+#include <cmath>
+
+// ustalam œrodek
+float circleX = 400;
+float circleY = 400;
+float speed = 250.0f; // prêdkoœæ poruszania
+
+Engine::Engine(const std::string& title, unsigned int w, unsigned int h)
+    : window(sf::VideoMode(w, h), title),
+    renderer(window)
+{
+    window.setFramerateLimit(0);
+    window.setVerticalSyncEnabled(true);
+}
+
+// zamykanie okna
+void Engine::handleEvents() {
+    sf::Event event;
+    while (window.pollEvent(event)) {
+        if (event.type == sf::Event::Closed ||
+            (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))
+            window.close();
+    }
+}
+
+void Engine::update(float dt) {
+    // poruszanie kó³kiem
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) circleY -= speed * dt;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) circleY += speed * dt;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) circleX -= speed * dt;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) circleX += speed * dt;
+
+    // MYSZKA
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    sf::Vector2i pos = sf::Mouse::getPosition(window);
+    static sf::Clock clickClock;
+    if (clickClock.getElapsedTime().asSeconds() > 0.033f) { 
+        for (int dy = -2; dy <= 2; ++dy)
+            for (int dx = -2; dx <= 2; ++dx) {
+                int x = pos.x + dx;
+                int y = pos.y + dy;
+                if (x >= 0 && x < 800 && y >= 0 && y < 800)
+                    renderer.setPixel(x, y, sf::Color(255, 105, 180));
+            }
+        clickClock.restart();
+    }
+}
+}
+
+// rysowanie elementów
+void Engine::render() {
+    renderer.clear(sf::Color(15, 0, 30));
+
+    int cx = 400, cy = 400;
+
+    // 1. linie
+    renderer.drawLine(50, 50, 750, 750, sf::Color(255, 105, 180), true);
+        renderer.drawLine(50, 750, 750, 50, sf::Color(255, 20, 147), false);
+    renderer.drawLine(50, cy, 750, cy, sf::Color(255, 182, 193), true);
+    renderer.drawLine(cx, 50, cx, 750, sf::Color(255, 182, 193), true);
+
+    // 2. okrêgi
+    renderer.drawCircle(cx, cy, 200, sf::Color(255, 192, 203), true);
+    renderer.drawCircle(cx, cy, 150, sf::Color(255, 160, 200), false);
+
+    // 3. elipsy
+    renderer.drawEllipse(cx, cy, 250, 100, sf::Color(219, 112, 147), true);
+    renderer.drawEllipse(cx, cy, 100, 180, sf::Color(255, 105, 180), true);
+
+    // 4. kó³ko
+    renderer.drawCircle((int)circleX, (int)circleY, 70, sf::Color(255, 192, 203), true);
+    renderer.boundaryFill((int)circleX, (int)circleY, sf::Color(255, 182, 193, 200), sf::Color(255, 192, 203));
+
+    // 5.gwiazda
+    float r = 180;
+    std::vector<Point2D> star;
+    for (int i = 0; i < 10; ++i) {
+        float angle = i * 3.14159f / 5.0f;
+        int radius = (i % 2 == 0) ? (int)r : (int)(r * 0.5f);
+        star.emplace_back(cx + (int)(radius * cos(angle)), cy + (int)(radius * sin(angle)));
+    }
+    renderer.drawPolygon(star, sf::Color(255, 220, 230));
+
+    renderer.flush();
+}
+
+void Engine::run() {
+    sf::Clock clock;
+    while (window.isOpen()) {
+        handleEvents();
+        update(clock.restart().asSeconds());
+        render();
+        window.display();
+    }
+}
