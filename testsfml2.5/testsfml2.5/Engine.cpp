@@ -2,10 +2,10 @@
 #include <iostream>
 #include <cmath>
 
-// ustalam úrodek
+// ustalam ÔøΩrodek
 float circleX = 400;
 float circleY = 400;
-float speed = 250.0f; // prÍdkoúÊ poruszania
+float speed = 250.0f; // prÔøΩdkoÔøΩÔøΩ poruszania
 
 Engine::Engine(const std::string& title, unsigned int w, unsigned int h)
     : window(sf::VideoMode(w, h), title),
@@ -26,14 +26,14 @@ void Engine::handleEvents() {
 }
 
 void Engine::update(float dt) {
-    // poruszanie kÛ≥kiem
+    // poruszanie kÔøΩkiem
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) circleY -= speed * dt;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) circleY += speed * dt;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) circleX -= speed * dt;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) circleX += speed * dt;
 
     // MYSZKA
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    /* if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
     sf::Vector2i pos = sf::Mouse::getPosition(window);
     static sf::Clock clickClock;
     if (clickClock.getElapsedTime().asSeconds() > 0.033f) { 
@@ -47,9 +47,25 @@ void Engine::update(float dt) {
         clickClock.restart();
     }
 }
+} */
+    // PR√ìBA IDK CZY TO DZIA≈ÅA
+    sf::Event event;
+     while (window.pollEvent(event)) {
+        if (event.type == sf::Event::MouseButtonPressed) {
+        if (event.mouseButton.button == sf::Mouse::Left) {
+    sf::Vector2i pos = sf::Mouse::getPosition(window);
+        for (int dy = -2; dy <= 2; ++dy)
+        for (int dx = -2; dx <= 2; ++dx) {
+        int x = pos.x + dx;
+        int y = pos.y + dy;
+            if (x >= 0 && x < 800 && y >= 0 && y < 800)
+    renderer.setPixel(x, y, sf::Color(255, 105, 180));
+         }
+        }
+     }
 }
 
-// rysowanie elementÛw
+// rysowanie elementÔøΩw
 void Engine::render() {
     renderer.clear(sf::Color(15, 0, 30));
 
@@ -61,7 +77,7 @@ void Engine::render() {
     renderer.drawLine(50, cy, 750, cy, sf::Color(255, 182, 193), true);
     renderer.drawLine(cx, 50, cx, 750, sf::Color(255, 182, 193), true);
 
-    // 2. okrÍgi
+    // 2. okrÔøΩgi
     renderer.drawCircle(cx, cy, 200, sf::Color(255, 192, 203), true);
     renderer.drawCircle(cx, cy, 150, sf::Color(255, 160, 200), false);
 
@@ -69,7 +85,7 @@ void Engine::render() {
     renderer.drawEllipse(cx, cy, 250, 100, sf::Color(219, 112, 147), true);
     renderer.drawEllipse(cx, cy, 100, 180, sf::Color(255, 105, 180), true);
 
-    // 4. kÛ≥ko
+    // 4. kÔøΩko
     renderer.drawCircle((int)circleX, (int)circleY, 70, sf::Color(255, 192, 203), true);
     renderer.boundaryFill((int)circleX, (int)circleY, sf::Color(255, 182, 193, 200), sf::Color(255, 192, 203));
 
