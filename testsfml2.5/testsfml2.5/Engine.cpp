@@ -25,19 +25,8 @@ void Engine::handleEvents() {
         if (event.type == sf::Event::Closed ||
             (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))
             window.close();
-    }
-}
-
-void Engine::update(float dt) {
-    // poruszanie kółkiem
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) circleY -= speed * dt;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) circleY += speed * dt;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) circleX -= speed * dt;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) circleX += speed * dt;
-
-    // MYSZKA - rysowanie pikseli przy kliknięciu
-    sf::Event event;
-    while (window.pollEvent(event)) {
+        
+        // Obsługa kliknięcia myszki
         if (event.type == sf::Event::MouseButtonPressed) {
             if (event.mouseButton.button == sf::Mouse::Left) {
                 sf::Vector2i pos = sf::Mouse::getPosition(window);
@@ -52,6 +41,14 @@ void Engine::update(float dt) {
             }
         }
     }
+}
+
+void Engine::update(float dt) {
+    // poruszanie kółkiem za pomocą klawiszy strzałek
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) circleY -= speed * dt;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) circleY += speed * dt;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) circleX -= speed * dt;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) circleX += speed * dt;
 }
 
 // rysowanie element�w
