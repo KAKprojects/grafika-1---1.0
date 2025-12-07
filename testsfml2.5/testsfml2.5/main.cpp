@@ -2,7 +2,7 @@
 #include <iostream>
 
 int main(int argc, char* argv[]) {
-    Engine engine("Pink engine", 800, 800);
+    Engine engine("Demo", 800, 800);
     
     if (!engine.init()) {
         return 1;
