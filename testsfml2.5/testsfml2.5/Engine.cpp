@@ -28,9 +28,12 @@ void Engine::handleEvents() {
         
         // Obsługa klawiszy 1-6 do przełączania trybów demo
         if (event.type == sf::Event::KeyPressed) {
-            if (event.key.code >= sf::Keyboard::Num1 && event.key.code <= sf::Keyboard::Num6) {
-                scene->handleKeyPress('1' + (event.key.code - sf::Keyboard::Num1));
-            }
+            if (event.key.code == sf::Keyboard::Num1) scene->handleKeyPress('1');
+            else if (event.key.code == sf::Keyboard::Num2) scene->handleKeyPress('2');
+            else if (event.key.code == sf::Keyboard::Num3) scene->handleKeyPress('3');
+            else if (event.key.code == sf::Keyboard::Num4) scene->handleKeyPress('4');
+            else if (event.key.code == sf::Keyboard::Num5) scene->handleKeyPress('5');
+            else if (event.key.code == sf::Keyboard::Num6) scene->handleKeyPress('6');
         }
         
         // Obsługa kliknięcia myszki
