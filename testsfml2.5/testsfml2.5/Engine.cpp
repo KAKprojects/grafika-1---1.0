@@ -26,6 +26,13 @@ void Engine::handleEvents() {
             (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))
             window.close();
         
+        // Obsługa klawiszy 1-6 do przełączania trybów demo
+        if (event.type == sf::Event::KeyPressed) {
+            if (event.key.code >= sf::Keyboard::Num1 && event.key.code <= sf::Keyboard::Num6) {
+                scene->handleKeyPress('1' + (event.key.code - sf::Keyboard::Num1));
+            }
+        }
+        
         // Obsługa kliknięcia myszki
         if (event.type == sf::Event::MouseButtonPressed) {
             if (event.mouseButton.button == sf::Mouse::Left) {
@@ -44,6 +51,11 @@ void Engine::handleEvents() {
 }
 
 void Engine::update(float dt) {
+    // Update demo scene
+    if (scene) {
+        scene->update(dt);
+    }
+    
     // poruszanie kółkiem za pomocą klawiszy strzałek
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) circleY -= speed * dt;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) circleY += speed * dt;
@@ -53,37 +65,15 @@ void Engine::update(float dt) {
 
 // rysowanie element�w
 void Engine::render() {
-    renderer.clear(sf::Color(15, 0, 30));
+    // Render the demo scene
+    if (scene) {
+        scene->render();
+    }
 
+    // Draw the interactive circle on top
     int cx = 400, cy = 400;
-
-    // 1. linie
-    renderer.drawLine(50, 50, 750, 750, sf::Color(255, 105, 180), true);
-        renderer.drawLine(50, 750, 750, 50, sf::Color(255, 20, 147), false);
-    renderer.drawLine(50, cy, 750, cy, sf::Color(255, 182, 193), true);
-    renderer.drawLine(cx, 50, cx, 750, sf::Color(255, 182, 193), true);
-
-    // 2. okr�gi
-    renderer.drawCircle(cx, cy, 200, sf::Color(255, 192, 203), true);
-    renderer.drawCircle(cx, cy, 150, sf::Color(255, 160, 200), false);
-
-    // 3. elipsy
-    renderer.drawEllipse(cx, cy, 250, 100, sf::Color(219, 112, 147), true);
-    renderer.drawEllipse(cx, cy, 100, 180, sf::Color(255, 105, 180), true);
-
-    // 4. k�ko
     renderer.drawCircle((int)circleX, (int)circleY, 70, sf::Color(255, 192, 203), true);
     renderer.boundaryFill((int)circleX, (int)circleY, sf::Color(255, 182, 193, 200), sf::Color(255, 192, 203));
-
-    // 5.gwiazda
-    float r = 180;
-    std::vector<Point2D> star;
-    for (int i = 0; i < 10; ++i) {
-        float angle = i * 3.14159f / 5.0f;
-        int radius = (i % 2 == 0) ? (int)r : (int)(r * 0.5f);
-        star.emplace_back(cx + (int)(radius * cos(angle)), cy + (int)(radius * sin(angle)));
-    }
-    renderer.drawPolygon(star, sf::Color(255, 220, 230));
 
     renderer.flush();
 }
@@ -101,6 +91,7 @@ void Engine::run() {
 bool Engine::init() {
     input = new InputManager(window);
     scene = new DemoScene(renderer);
+    scene->init();  // Initialize the demo scene
     return true;
 }
 
