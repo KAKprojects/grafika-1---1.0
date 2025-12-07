@@ -1,0 +1,10 @@
+*.o
+testsfml2.5
+x64/
+*.exe
+*.ilk
+*.user
+engine_log.txt
+*.log
+*.pyc
+__pycache__/

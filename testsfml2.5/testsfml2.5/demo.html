@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silnik Grafiki 2D - Demo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #1a0020;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            color: #ff69b4;
+            text-shadow: 0 0 10px #ff69b4;
+        }
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #ff69b4;
+        }
+        img {
+            width: 100%;
+            max-width: 800px;
+            border: 3px solid #ff69b4;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+        }
+        .info {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 105, 180, 0.1);
+            border-left: 4px solid #ff69b4;
+            text-align: left;
+        }
+        .info h2 {
+            margin-top: 0;
+            color: #ff69b4;
+        }
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .feature {
+            background: rgba(255, 105, 180, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ff69b4;
+        }
+        .feature h3 {
+            color: #ff69b4;
+            margin-top: 0;
+        }
+        code {
+            background: #1a0020;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #ffc0cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 Silnik Grafiki 2D - Demo</h1>
+        
+        <img src="screenshot.png" alt="Demo screenshot">
+        
+        <div class="info">
+            <h2>Architektura Projektu</h2>
+            <ul>
+                <li><strong>Engine.h/cpp</strong> — Główny silnik gry z pętlą game loop</li>
+                <li><strong>PrimitiveRenderer.h/cpp</strong> — Rendering linii, okręgów, elips algorytmami Bresenhama</li>
+                <li><strong>InputManager.h/cpp</strong> — Menedżer wejścia (klawiatura, myszka)</li>
+                <li><strong>GameObject hierarchia</strong> — Polimorficzny system obiektów gry</li>
+                <li><strong>SFML 2.5</strong> — Biblioteka grafiki i okna</li>
+            </ul>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <h3>🎨 Funkcje Grafiki</h3>
+                <ul style="margin: 0; padding-left: 20px;">
+                    <li>Linie (Bresenham)</li>
+                    <li>Okręgi (midpoint)</li>
+                    <li>Elipsy</li>
+                    <li>Wypełnianie (flood fill)</li>
+                    <li>Wielokąty</li>
+                </ul>
+            </div>
+            <div class="feature">
+                <h3>⌨️ Interakcja</h3>
+                <ul style="margin: 0; padding-left: 20px;">
+                    <li>Kontrola WASD</li>
+                    <li>Mysz (lewy przycisk)</li>
+                    <li>Klawisz ESC - zamknięcie</li>
+                    <li>Animacje (frame-based)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="info" style="margin-top: 20px;">
+            <h2>Kompilacja i Uruchomienie</h2>
+            <p><strong>Kompilacja:</strong></p>
+            <code>make clean && make</code>
+            <p><strong>Uruchomienie z grafiką:</strong></p>
+            <code>./testsfml2.5</code>
+            <p><strong>Generowanie screenshota (headless):</strong></p>
+            <code>./testsfml2.5 demo</code>
+        </div>
+    </div>
+</body>
+</html>
