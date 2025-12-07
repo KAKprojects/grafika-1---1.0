@@ -9,15 +9,15 @@ DemoScene::DemoScene(PrimitiveRenderer& r)
 {}
 
 void DemoScene::init() {
-    std::cout << "\n=== INTERACTIVE GRAPHICS ENGINE DEMO ===" << std::endl;
-    std::cout << "Press keys 1-6 to switch modes:" << std::endl;
-    std::cout << "1 - Geometry: Lines and Shapes" << std::endl;
-    std::cout << "2 - Animation: Moving Circles" << std::endl;
-    std::cout << "3 - Filled Shapes: Colors and Gradients" << std::endl;
-    std::cout << "4 - Polygons: Complex Patterns" << std::endl;
-    std::cout << "5 - Transformations: Rotation" << std::endl;
-    std::cout << "6 - Interactive: Click to draw (Arrow keys to move circle)" << std::endl;
-    std::cout << "========================================\n" << std::endl;
+    std::cout << "\n=== SILNIK GRAFIKI 2D - DEMO INTERAKTYWNE ===" << std::endl;
+    std::cout << "Nacisnij klawisze 1-6 aby zmienić tryb:" << std::endl;
+    std::cout << "1 - Geometria: Linie i kształty" << std::endl;
+    std::cout << "2 - Animacja: Orbitujące kółka" << std::endl;
+    std::cout << "3 - Wypełnione kształty: Kolory i gradienty" << std::endl;
+    std::cout << "4 - Wielokąty: Złożone wzory" << std::endl;
+    std::cout << "5 - Transformacje: Rotacja" << std::endl;
+    std::cout << "6 - Interaktywny: Kliknij aby rysować (Strzałki do ruchu)" << std::endl;
+    std::cout << "============================================\n" << std::endl;
 }
 
 void DemoScene::update(float dt) {
@@ -42,7 +42,16 @@ void DemoScene::render() {
 void DemoScene::handleKeyPress(int key) {
     if (key >= '1' && key <= '6') {
         mode = key - '0';
-        std::cout << "Switched to mode " << mode << std::endl;
+        std::string modeNames[] = {
+            "",
+            "Geometria: Linie i kształty",
+            "Animacja: Orbitujące kółka",
+            "Wypełnione kształty: Kolory",
+            "Wielokąty: Złożone wzory",
+            "Transformacje: Rotacja",
+            "Interaktywny: Rysowanie"
+        };
+        std::cout << "Zmieniono tryb na: " << modeNames[mode] << std::endl;
     }
 }
 
@@ -116,10 +125,9 @@ void DemoScene::renderModeFilled() {
     renderer.drawEllipse(400, 450, 150, 80, sf::Color(150, 100, 200), true);
     renderer.drawEllipse(650, 450, 100, 70, sf::Color(200, 150, 100), true);
     
-    // Boundary fill demonstration
+    // Central filled circle
     int cx = 400, cy = 300;
     renderer.drawCircle(cx, cy, 100, sf::Color(100, 255, 200), true);
-    renderer.boundaryFill(cx, cy, sf::Color(255, 200, 100), sf::Color(100, 255, 200));
 }
 
 // MODE 4: Complex polygons and patterns

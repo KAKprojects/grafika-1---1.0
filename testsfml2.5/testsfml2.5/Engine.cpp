@@ -31,7 +31,6 @@ void Engine::handleEvents() {
         if (event.type == sf::Event::TextEntered) {
             unsigned int unicode = event.text.unicode;
             if (unicode >= '1' && unicode <= '6') {
-                std::cout << "Mode changed to: " << (char)unicode << std::endl;
                 scene->handleKeyPress(unicode);
             }
         }
@@ -41,27 +40,21 @@ void Engine::handleEvents() {
             // Bezpośrednia mapowanie klawiszy numerycznych
             switch(event.key.code) {
                 case sf::Keyboard::Num1:
-                    std::cout << "Mode changed to: 1" << std::endl;
                     scene->handleKeyPress('1');
                     break;
                 case sf::Keyboard::Num2:
-                    std::cout << "Mode changed to: 2" << std::endl;
                     scene->handleKeyPress('2');
                     break;
                 case sf::Keyboard::Num3:
-                    std::cout << "Mode changed to: 3" << std::endl;
                     scene->handleKeyPress('3');
                     break;
                 case sf::Keyboard::Num4:
-                    std::cout << "Mode changed to: 4" << std::endl;
                     scene->handleKeyPress('4');
                     break;
                 case sf::Keyboard::Num5:
-                    std::cout << "Mode changed to: 5" << std::endl;
                     scene->handleKeyPress('5');
                     break;
                 case sf::Keyboard::Num6:
-                    std::cout << "Mode changed to: 6" << std::endl;
                     scene->handleKeyPress('6');
                     break;
                 default:
@@ -109,7 +102,6 @@ void Engine::render() {
     // Draw the interactive circle on top
     int cx = 400, cy = 400;
     renderer.drawCircle((int)circleX, (int)circleY, 70, sf::Color(255, 192, 203), true);
-    renderer.boundaryFill((int)circleX, (int)circleY, sf::Color(255, 182, 193, 200), sf::Color(255, 192, 203));
 
     renderer.flush();
 }
