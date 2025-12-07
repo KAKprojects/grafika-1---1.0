@@ -19,6 +19,7 @@ Engine::Engine(const std::string& title, unsigned int w, unsigned int h)
 }
 
 // zamykanie okna
+// zamykanie okna
 void Engine::handleEvents() {
     sf::Event event;
     while (window.pollEvent(event)) {
@@ -26,7 +27,15 @@ void Engine::handleEvents() {
             (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))
             window.close();
         
-        // Obsługa klawiszy 1-6 do przełączania trybów demo
+        // Obsługa tekstu wpisanego (bardziej niezawodne na macOS)
+        if (event.type == sf::Event::TextEntered) {
+            unsigned int codepoint = event.text.unicode;
+            if (codepoint >= '1' && codepoint <= '6') {
+                scene->handleKeyPress(codepoint);
+            }
+        }
+        
+        // Alternatywnie: obsługa KeyPressed dla klawiszy 1-6
         if (event.type == sf::Event::KeyPressed) {
             if (event.key.code == sf::Keyboard::Num1) scene->handleKeyPress('1');
             else if (event.key.code == sf::Keyboard::Num2) scene->handleKeyPress('2');
