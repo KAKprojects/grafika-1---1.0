@@ -27,22 +27,46 @@ void Engine::handleEvents() {
             (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))
             window.close();
         
-        // Obsługa tekstu wpisanego (bardziej niezawodne na macOS)
+        // Obsługa TextEntered (bardziej niezawodne)
         if (event.type == sf::Event::TextEntered) {
-            unsigned int codepoint = event.text.unicode;
-            if (codepoint >= '1' && codepoint <= '6') {
-                scene->handleKeyPress(codepoint);
+            unsigned int unicode = event.text.unicode;
+            if (unicode >= '1' && unicode <= '6') {
+                std::cout << "Mode changed to: " << (char)unicode << std::endl;
+                scene->handleKeyPress(unicode);
             }
         }
         
-        // Alternatywnie: obsługa KeyPressed dla klawiszy 1-6
+        // Obsługa KeyPressed - backup dla klawiszy numerycznych
         if (event.type == sf::Event::KeyPressed) {
-            if (event.key.code == sf::Keyboard::Num1) scene->handleKeyPress('1');
-            else if (event.key.code == sf::Keyboard::Num2) scene->handleKeyPress('2');
-            else if (event.key.code == sf::Keyboard::Num3) scene->handleKeyPress('3');
-            else if (event.key.code == sf::Keyboard::Num4) scene->handleKeyPress('4');
-            else if (event.key.code == sf::Keyboard::Num5) scene->handleKeyPress('5');
-            else if (event.key.code == sf::Keyboard::Num6) scene->handleKeyPress('6');
+            // Bezpośrednia mapowanie klawiszy numerycznych
+            switch(event.key.code) {
+                case sf::Keyboard::Num1:
+                    std::cout << "Mode changed to: 1" << std::endl;
+                    scene->handleKeyPress('1');
+                    break;
+                case sf::Keyboard::Num2:
+                    std::cout << "Mode changed to: 2" << std::endl;
+                    scene->handleKeyPress('2');
+                    break;
+                case sf::Keyboard::Num3:
+                    std::cout << "Mode changed to: 3" << std::endl;
+                    scene->handleKeyPress('3');
+                    break;
+                case sf::Keyboard::Num4:
+                    std::cout << "Mode changed to: 4" << std::endl;
+                    scene->handleKeyPress('4');
+                    break;
+                case sf::Keyboard::Num5:
+                    std::cout << "Mode changed to: 5" << std::endl;
+                    scene->handleKeyPress('5');
+                    break;
+                case sf::Keyboard::Num6:
+                    std::cout << "Mode changed to: 6" << std::endl;
+                    scene->handleKeyPress('6');
+                    break;
+                default:
+                    break;
+            }
         }
         
         // Obsługa kliknięcia myszki
