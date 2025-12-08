@@ -4,7 +4,7 @@
 #include "Point2D.h"
 
 class PrimitiveRenderer {
-    sf::RenderWindow& window; // mogê rysowaæ
+    sf::RenderWindow& window; // mogÃª rysowaÃ¦
     sf::Image   framebuffer;
     sf::Texture texture;
     sf::Sprite  sprite;
@@ -24,7 +24,7 @@ public:
     void drawCircle(int cx, int cy, int r, const sf::Color& col = sf::Color::White, bool ownAlgo = true);
     void drawEllipse(int cx, int cy, int rx, int ry, const sf::Color& col = sf::Color::White, bool ownAlgo = true);
     void drawPolyline(const std::vector<Point2D>& points, const sf::Color& col = sf::Color::White, bool closed = false);
-    void drawPolygon(const std::vector<Point2D>& points, const sf::Color& col = sf::Color::White); // punkty siê maj¹ nie przecinaæ
+    void drawPolygon(const std::vector<Point2D>& points, const sf::Color& col = sf::Color::White); // punkty siÃª majÂ¹ nie przecinaÃ¦
 
     void floodFill(int x, int y, const sf::Color& fillCol);
     void boundaryFill(int x, int y, const sf::Color& fillCol, const sf::Color& borderCol);

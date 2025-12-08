@@ -4,7 +4,7 @@
 class PrimitiveRenderer;
 
 class LineSegment {
-    Point2D start, end; // pocz¹tek i koniec odcinka
+    Point2D start, end; // poczÂ¹tek i koniec odcinka
 public:
     LineSegment(const Point2D& a = Point2D(), const Point2D& b = Point2D()) : start(a), end(b) {}
     const Point2D& getStart() const { 
@@ -13,5 +13,5 @@ public:
     const Point2D& getEnd()   const { 
         return end; 
     }
-    void draw(PrimitiveRenderer& pr, const sf::Color& c = sf::Color::White, bool incremental = true) const; // rysujê liniê
+    void draw(PrimitiveRenderer& pr, const sf::Color& c = sf::Color::White, bool incremental = true) const; // rysujÃª liniÃª
 };

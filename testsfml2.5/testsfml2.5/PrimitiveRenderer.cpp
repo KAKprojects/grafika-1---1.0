@@ -16,7 +16,7 @@ void PrimitiveRenderer::clear(const sf::Color& col) {
     framebuffer.create(width, height, col);
 }
 
-// jeden piksel
+// set single pixel
 void PrimitiveRenderer::setPixel(int x, int y, const sf::Color& col) {
     if (x >= 0 && x < (int)width && y >= 0 && y < (int)height)
         framebuffer.setPixel(x, y, col);
@@ -158,7 +158,7 @@ void PrimitiveRenderer::drawPolygon(const std::vector<Point2D>& points, const sf
             Point2D d = points[(j + 1) % points.size()];
             if ((i + 1) % points.size() == j || (j + 1) % points.size() == i) continue;
             if (segmentsIntersect(a, b, c, d)) {
-                std::cout << "Wielok¹t ma przeciêcia \n";
+                std::cout << "Polygon has intersections\n";
                 return;
             }
         }

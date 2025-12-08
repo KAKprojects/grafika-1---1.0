@@ -4,10 +4,10 @@
 #include <iostream>
 #include <cmath>
 
-// ustalam �rodek
+// ustawiam środek
 float circleX = 400;
 float circleY = 400;
-float speed = 250.0f; // pr�dko�� poruszania
+float speed = 250.0f; // prędkość poruszania
 
 Engine::Engine(const std::string& title, unsigned int w, unsigned int h)
     : window(sf::VideoMode(w, h), title),
@@ -17,8 +17,6 @@ Engine::Engine(const std::string& title, unsigned int w, unsigned int h)
     window.setFramerateLimit(0);
     window.setVerticalSyncEnabled(true);
 }
-
-// zamykanie okna
 // zamykanie okna
 void Engine::handleEvents() {
     sf::Event event;
@@ -92,7 +90,7 @@ void Engine::update(float dt) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) circleX += speed * dt;
 }
 
-// rysowanie element�w
+// rysowanie elementów
 void Engine::render() {
     // Render the demo scene
     if (scene) {
